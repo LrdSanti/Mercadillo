@@ -2,6 +2,7 @@ package com.mall.mercadillo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,4 +49,20 @@ public class CategoryServiceImpl implements ICategoryService {
             return new ResponseEntity<>(categories, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }  
+
+    @Override
+    @Transactional(readOnly = true)
+    public ResponseEntity<Category> searchById(Long id) {
+        try {
+            Optional<Category> category = categoryRepository.findById(id);
+            if (category.isPresent()) {
+                return new ResponseEntity<>(category.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

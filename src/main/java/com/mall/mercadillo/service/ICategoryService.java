@@ -8,8 +8,8 @@ import com.mall.mercadillo.model.Category;
 
 public interface ICategoryService {
     public ResponseEntity<List<Category>> search();
-    
+
     public ResponseEntity<List<Category>> save(Category category);
 
-    
+    public ResponseEntity<Category> searchById(Long id);
 }

@@ -10,7 +10,8 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "category", indexes = { @Index(name = "index_name", columnList = "name", unique = true) })
+@Table(name = "category",
+indexes = { @Index(name = "index_name", columnList = "name", unique = true) })
 public class Category {
 
     @Id
