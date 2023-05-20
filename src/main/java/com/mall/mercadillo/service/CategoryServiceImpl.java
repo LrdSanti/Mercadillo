@@ -85,4 +85,15 @@ public class CategoryServiceImpl implements ICategoryService {
         }
     }
 
+    @Override
+    public ResponseEntity<List<Category>> delete(Long id) {
+        try {
+            categoryRepository.deleteById(id);
+            return new ResponseEntity<>(categories, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
