@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
     private final ICategoryRepository categoryRepository;
 
-    List<Category> categories = new ArrayList<>();
+    public List<Category> categories = new ArrayList<>();
 
     public CategoryServiceImpl(ICategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -30,10 +30,12 @@ public class CategoryServiceImpl implements ICategoryService {
     public ResponseEntity<List<Category>> search() {
         try {
             categories = (List<Category>) categoryRepository.findAll();
-            return new ResponseEntity<>(categories, HttpStatus.OK);
+            // Aqui le faltaba declarar el tipo de lista que iba a returnar
+            return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(categories, HttpStatus.INTERNAL_SERVER_ERROR);
+            //Aqui le faltaba declarar el tipo de lista que iba a returnar
+            return new ResponseEntity<List<Category>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
