@@ -41,5 +41,9 @@ public class CategoryRestController {
         return categoryService.searchById(id);
 }
 
+@PutMapping("categories/{id}")
+public ResponseEntity<List<Category>> updateCategoryB(@RequestBody Category category, @PathVariable Long id){
+    return categoryService.update(category, id);
+}
     
 }
