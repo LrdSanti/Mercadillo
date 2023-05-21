@@ -30,8 +30,6 @@ public class Product implements Serializable {
     private String name;
     private double price;
 
-  
-
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "picture", length = 1000)
@@ -39,15 +37,15 @@ public class Product implements Serializable {
 
     // @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     // @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
-    //al hacer marge descomentar categoria 
+    // al hacer marge descomentar categoria
     // private Category category;
 
     // @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     // @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
-    //al hacer marge descomentar maker 
+    // al hacer marge descomentar maker
     // private Maker maker;
 
     @Serial
     private static final long serialVersionUID = -731210493L;
-    
+
 }
