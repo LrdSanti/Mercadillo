@@ -38,7 +38,7 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    // @Transactional(readOnly = true)
     public ResponseEntity<List<Category>> save(Category category) {
         try {
             Category categorySaved = categoryRepository.save(category);
@@ -46,7 +46,7 @@ public class CategoryServiceImpl implements ICategoryService {
             return new ResponseEntity<>(categories, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(categories, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
