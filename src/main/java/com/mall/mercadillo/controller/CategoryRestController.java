@@ -26,20 +26,28 @@ public class CategoryRestController {
     private ICategoryService categoryService;
 
     @GetMapping("categories")
-    public ResponseEntity<List<Category>> searchCategories(){
+    public ResponseEntity<List<Category>> searchCategories() {
         return categoryService.search();
     }
 
     @PostMapping("categories")
-    public ResponseEntity<List<Category>> saveCategorie(@RequestBody
-    Category category){
+    public ResponseEntity<List<Category>> saveCategorie(@RequestBody Category category) {
         return categoryService.save(category);
     }
 
     @GetMapping("categories/{id}")
-    public ResponseEntity<Category> searchCategoryById(@PathVariable Long id){
+    public ResponseEntity<Category> searchCategoryById(@PathVariable Long id) {
         return categoryService.searchById(id);
-}
+    }
 
-    
+    @PutMapping("categories/{id}")
+    public ResponseEntity<List<Category>> updateCategoryB(@RequestBody Category category, @PathVariable Long id) {
+        return categoryService.update(category, id);
+    }
+
+    @DeleteMapping("categories/{id}")
+    public ResponseEntity<List<Category>> deleteCategoryById(@PathVariable Long id) {
+        return categoryService.delete(id);
+    }
+
 }

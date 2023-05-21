@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mall.mercadillo.model.Category;
 import com.mall.mercadillo.repository.ICategoryRepository;
 
-
-
 @Service
 public class CategoryServiceImpl implements ICategoryService {
 
@@ -34,7 +32,7 @@ public class CategoryServiceImpl implements ICategoryService {
             return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            //Aqui le faltaba declarar el tipo de lista que iba a returnar
+            // Aqui le faltaba declarar el tipo de lista que iba a returnar
             return new ResponseEntity<List<Category>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -50,7 +48,7 @@ public class CategoryServiceImpl implements ICategoryService {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }  
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -67,4 +65,35 @@ public class CategoryServiceImpl implements ICategoryService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public ResponseEntity<List<Category>> update(Category category, Long id) {
+        try {
+            Optional<Category> categorySearch = categoryRepository.findById(id);
+            if (categorySearch.isPresent()) {
+                categorySearch.get().setName(category.getName());
+                categorySearch.get().setDescription(category.getDescription());
+                Category categoryToUpdate = categoryRepository.save(categorySearch.get());
+                categories.add(categoryToUpdate);
+                return new ResponseEntity<>(categories, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<Category>> delete(Long id) {
+        try {
+            categoryRepository.deleteById(id);
+            return new ResponseEntity<>(categories, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
