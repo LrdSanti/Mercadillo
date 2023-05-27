@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mall.mercadillo.model.Product;
-import com.mall.mercadillo.repository.IProductoRepository;
+import com.mall.mercadillo.repository.IProductRepository;
 import com.mall.mercadillo.utili.Util;
 
 @Service
-public class ProductoServiceImpl implements IProductService {
-    private final IProductoRepository productoRepository;
+public class ProductServiceImpl implements IProductService {
+    private final IProductRepository productoRepository;
 
     private final List<Product> products = new ArrayList<>();
 
-    public ProductoServiceImpl(IProductoRepository productoRepository) {
+    public ProductServiceImpl(IProductRepository productoRepository) {
         this.productoRepository = productoRepository;
     }
 
@@ -45,6 +45,12 @@ public class ProductoServiceImpl implements IProductService {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
 
+    }
+
+    @Override
+    public ResponseEntity<List<Product>> save(Product product, Long categoryId, Long MakerId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
 
 }

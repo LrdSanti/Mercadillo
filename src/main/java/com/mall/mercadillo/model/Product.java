@@ -35,15 +35,15 @@ public class Product implements Serializable {
     @Column(name = "picture", length = 1000)
     private byte[] picture;
 
-    // @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    // @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
     // al hacer marge descomentar categoria
-    // private Category category;
+     private Category category;
 
-    // @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    // @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
     // al hacer marge descomentar maker
-    // private Maker maker;
+     private Maker maker;
 
     @Serial
     private static final long serialVersionUID = -731210493L;
