@@ -13,6 +13,7 @@ public interface IProductService {
 
 
     // Update
+    public ResponseEntity<List<Product>> update(Product product, Long categoryId, Long makerId, Long productId);
 
 
     // Eliminar   

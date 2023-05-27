@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mall.mercadillo.model.Category;
+import com.mall.mercadillo.model.Maker;
 import com.mall.mercadillo.model.Product;
 import com.mall.mercadillo.repository.ICategoryRepository;
+import com.mall.mercadillo.repository.IMakerRepository;
 import com.mall.mercadillo.repository.IProductRepository;
 import com.mall.mercadillo.utili.Util;
 
@@ -21,13 +23,15 @@ public class ProductServiceImpl implements IProductService {
     private final IProductRepository productoRepository;
 
     private ICategoryRepository categoryRepository;
+    private IMakerRepository makerRepository;
 
     private final List<Product> products = new ArrayList<>();
 
-
-    public ProductServiceImpl(IProductRepository productoRepository, ICategoryRepository categoryRepository) {
+    public ProductServiceImpl(IProductRepository productoRepository, ICategoryRepository categoryRepository,
+            IMakerRepository makerRepository) {
         this.productoRepository = productoRepository;
         this.categoryRepository = categoryRepository;
+        this.makerRepository = makerRepository;
     }
 
     @Override
@@ -62,11 +66,13 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
-    public ResponseEntity<List<Product>> update(Product product, Long categoryId, Long productId) {
+    public ResponseEntity<List<Product>> update(Product product, Long categoryId, Long makerId, Long productId) {
         try {
             Optional<Category> category = categoryRepository.findById(categoryId);
-            if (category.isPresent()) {
+            Optional<Maker> maker = makerRepository.findById(categoryId);
+            if (category.isPresent() && maker.isPresent()) {
                 product.setCategory(category.get());
+                product.setMaker(maker.get());
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -77,7 +83,6 @@ public class ProductServiceImpl implements IProductService {
                 productSearch.get().setPicture(product.getPicture());
                 productSearch.get().setCategory(product.getCategory());
                 productSearch.get().setMaker(product.getMaker());
-                
 
                 Product productSaved = productoRepository.save(productSearch.get());
                 if (productSaved != null) {
@@ -92,6 +97,5 @@ public class ProductServiceImpl implements IProductService {
         }
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-    
 
 }
