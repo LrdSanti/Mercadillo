@@ -37,11 +37,11 @@ public class Product implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
-    private Category category;
+     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
-    private Maker maker;
+     private Maker maker;
 
     @Serial
     private static final long serialVersionUID = -731210493L;

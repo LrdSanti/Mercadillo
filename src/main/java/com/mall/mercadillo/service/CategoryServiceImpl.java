@@ -38,7 +38,7 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    // @Transactional(readOnly = true)
+    // @Transactional(readOnly = true) ¡el transactional readOnly solo es para leer informacion!
     public ResponseEntity<List<Category>> save(Category category) {
         try {
             Category categorySaved = categoryRepository.save(category);

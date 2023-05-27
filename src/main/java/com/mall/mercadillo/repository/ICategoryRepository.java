@@ -6,6 +6,5 @@ import com.mall.mercadillo.model.Category;
 
 public interface ICategoryRepository extends CrudRepository<Category,Long>{
 
-    // Category save(boolean add);
     
 }
