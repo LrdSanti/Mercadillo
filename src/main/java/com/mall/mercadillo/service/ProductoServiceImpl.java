@@ -3,6 +3,7 @@ package com.mall.mercadillo.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Locale.Category;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mall.mercadillo.model.Product;
+import com.mall.mercadillo.repository.ICategoryRepository;
 import com.mall.mercadillo.repository.IProductoRepository;
 import com.mall.mercadillo.utili.Util;
 
@@ -17,10 +19,13 @@ import com.mall.mercadillo.utili.Util;
 public class ProductoServiceImpl implements IProductService {
     private final IProductoRepository productoRepository;
 
+    private ICategoryRepository categoryRepository;
+
     private final List<Product> products = new ArrayList<>();
 
-    public ProductoServiceImpl(IProductoRepository productoRepository) {
+    public ProductoServiceImpl(IProductoRepository productoRepository, ICategoryRepository categoryRepository) {
         this.productoRepository = productoRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
