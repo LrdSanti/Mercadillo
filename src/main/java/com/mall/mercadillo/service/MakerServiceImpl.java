@@ -2,6 +2,8 @@ package com.mall.mercadillo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -55,20 +57,53 @@ public class MakerServiceImpl implements IMakerService {
 
     @Override
     public ResponseEntity<Maker> searchById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchById'");
+        
+        try {
+            Optional<Maker> maker = makerRepository.findById(id);
+
+            if (maker.isPresent()) {
+                
+                return new ResponseEntity<>(maker.get(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<Maker>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<List<Maker>> update(Maker maker, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        try {
+            Optional<Maker> makerSearch = makerRepository.findById(id);
+
+            if (makerSearch.isPresent()) {
+                makerSearch.get().setName(maker.getName());
+                
+                Maker makerToUpdate = makerRepository.save(makerSearch.get());
+                makers.add(makerToUpdate);
+
+                return new ResponseEntity<>(makers, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<List<Maker>> delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        
+        try {
+            makerRepository.deleteById(id);
+            return new ResponseEntity<>(makers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     
 }
