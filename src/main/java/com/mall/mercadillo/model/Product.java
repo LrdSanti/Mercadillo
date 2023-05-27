@@ -37,12 +37,10 @@ public class Product implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
-    // al hacer marge descomentar categoria
      private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({ "hibernateLazyInitializer", "hibernate" })
-    // al hacer marge descomentar maker
      private Maker maker;
 
     @Serial
