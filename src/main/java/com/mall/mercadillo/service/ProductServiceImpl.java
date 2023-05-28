@@ -59,9 +59,35 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ResponseEntity<List<Product>> save(Product product, Long categoryId, Long MakerId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public ResponseEntity<List<Product>> save(Product product, Long categoryId, Long makerId) {
+        
+        try {
+
+            Optional<Category> category = categoryRepository.findById(categoryId);
+            Optional<Maker> maker = makerRepository.findById(makerId);
+
+            if (category.isPresent() && maker.isPresent()) {
+
+                product.setCategory(category.get());
+                product.setMaker(maker.get());
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            Product productSaved = productoRepository.save(product);
+            if (productSaved != null) {
+                products.add(productSaved);
+            } else {
+                new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+        return new ResponseEntity<>(products, HttpStatus.OK);
+
     }
 
     @Override
