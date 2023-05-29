@@ -1,4 +1,4 @@
-package com.mall.mercadillo.utili;
+package com.mall.mercadillo.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

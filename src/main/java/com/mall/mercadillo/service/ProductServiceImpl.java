@@ -15,7 +15,7 @@ import com.mall.mercadillo.model.Product;
 import com.mall.mercadillo.repository.ICategoryRepository;
 import com.mall.mercadillo.repository.IMakerRepository;
 import com.mall.mercadillo.repository.IProductRepository;
-import com.mall.mercadillo.utili.Util;
+import com.mall.mercadillo.util.Util;
 
 @Service
 public class ProductServiceImpl implements IProductService {
